@@ -1,4 +1,6 @@
-import java.io.File
+package day1
+
+import readText
 
 fun main() {
     fun calculateMax(input: String): Int?  =
