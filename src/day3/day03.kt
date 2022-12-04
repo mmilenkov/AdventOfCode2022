@@ -4,29 +4,40 @@ import readLines
 
 fun main() {
     fun part1() {
-        val data = readLines("day3")
-
         var score = 0
-        data.forEach { line ->
+        readLines("day3").forEach { line ->
             val pivot = line.length / 2
             val compartment1 = line.substring(0, pivot)
             val compartment2 = line.substring(pivot, line.length)
-            var repeating = 'a'
             run comparison@ {
                 compartment1.forEach { char ->
                     if (compartment2.contains(char)) {
-                        repeating = char
+                        score += char.toScore()
                         return@comparison
                     }
                 }
             }
-            score += repeating.toScore()
         }
         println(score)
     }
 
     fun part2() {
+        var data = readLines("day3")
+        var sum = 0
+        while (data.isNotEmpty()) {
+            val elves = data.take(3)
+            data = data.drop(3)
+            run comparison@{
+                elves[0].forEach { char ->
+                    if (elves[1].contains(char) && elves[2].contains(char)) {
+                        sum += char.toScore()
+                        return@comparison
+                    }
+                }
+            }
+        }
 
+        println(sum)
     }
 
     part1()
